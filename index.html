@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เข้าสู่ระบบ - ระบบสอบออนไลน์</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ตั้งค่า Full Screen 100% และโทนสี */
+    :root {
+      --primary: #1a237e;    /* น้ำเงินเข้ม */
+      --secondary: #3f51b5;  /* น้ำเงินคราม */
+      --accent: #00b0ff;     /* ฟ้าสว่าง */
+      --white: #ffffff;
+    }
+
+    body, html {
+      margin: 0; padding: 0;
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Sarabun', sans-serif;
+    }
+
+    .main-wrapper {
+      display: flex;
+      width: 100vw; height: 100vh;
+      background: #f0f4f8;
+    }
+
+    /* ฝั่งซ้าย: ข้อมูลรายวิชา (เหมือนเดิมแต่เปลี่ยนสี) */
+    .info-section {
+      flex: 0.8;
+      background: linear-gradient(135deg, #0d47a1 0%, #1a237e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .info-section::after {
+      content: ""; position: absolute;
+      width: 100%; height: 100%;
+      background-image: radial-gradient(var(--accent) 0.5px, transparent 0.5px);
+      background-size: 40px 40px;
+      opacity: 0.1;
+    }
+
+    /* ฝั่งขวา: แป้นพิมพ์และช่องกรอก */
+    .input-section {
+      flex: 1.2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      padding: 40px;
+    }
+
+    .logo-main {
+      height: 150px; margin-bottom: 30px;
+      filter: drop-shadow(0 0 15px rgba(0, 176, 255, 0.4));
+      z-index: 1;
+    }
+
+    .course-title {
+      font-size: 2.5rem; font-weight: 700; margin: 0;
+      color: #fff; z-index: 1;
+    }
+
+    .college-name {
+      font-size: 1.2rem; opacity: 0.8; margin-top: 10px;
+      color: var(--accent); z-index: 1;
+    }
+
+    /* --- ดีไซน์ช่องกรอกรหัส 11 ช่องแบบใหม่ --- */
+    .input-display {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .input-label {
+      font-size: 1rem;
+      color: var(--secondary);
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    /* Container ของช่องสี่เหลี่ยม */
+    .sid-container {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .sid-box {
+      width: 45px;
+      height: 60px;
+      border: 2px solid #cfd8dc;
+      border-radius: 10px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      background: #f8fbff;
+      transition: all 0.2s;
+    }
+
+    /* เมื่อมีตัวเลขแล้ว */
+    .sid-box.filled {
+      border-color: var(--accent);
+      background: #fff;
+      box-shadow: 0 4px 10px rgba(0, 176, 255, 0.15);
+      transform: translateY(-5px);
+    }
+
+    /* แป้นพิมพ์วงกลม (เหมือนเดิมปรับสี) */
+    .numpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .num-circle {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid #e3f2fd;
+      background: #fff;
+      font-size: 2rem; font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      display: flex; justify-content: center; align-items: center;
+      transition: all 0.2s;
+    }
+
+    .num-circle:hover {
+      background: var(--accent); color: #fff;
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    .btn-red { color: #ff5252; border-color: #ffebee; }
+    .btn-red:hover { background: #ff5252; color: #fff; }
+
+    .btn-submit {
+      width: 450px; padding: 22px; margin-top: 40px;
+      border-radius: 15px; border: none;
+      background: var(--primary); color: #fff;
+      font-size: 1.5rem; font-weight: 700; cursor: pointer;
+      box-shadow: 0 10px 25px rgba(26, 35, 126, 0.2);
+    }
+
+    .btn-submit:hover { filter: brightness(1.2); transform: translateY(-3px); }
+  </style>
+</head>
+<body>
+
+  <div class="main-wrapper">
+    <div class="info-section">
+      <img src="im/it.png" class="logo-main">
+      <h1 class="course-title">ระบบสอบปลายภาคเรียน</h1>
+      <p class="college-name">วิชาคณิตศาสตร์คอมพิวเตอร์</p>
+      <div style="position: absolute; bottom: 40px; opacity: 0.5;">CHAIYAPHUM TECHNICAL COLLEGE</div>
+    </div>
+
+    <div class="input-section">
+      <div class="input-display">
+        <div class="input-label">กรุณากรอกรหัสนักศึกษา 11 หลัก</div>
+        <div class="sid-container" id="sid-visual">
+          <div class="sid-box"></div><div class="sid-box"></div><div class="sid-box"></div>
+          <div class="sid-box"></div><div class="sid-box"></div><div class="sid-box"></div>
+          <div class="sid-box"></div><div class="sid-box"></div><div class="sid-box"></div>
+          <div class="sid-box"></div><div class="sid-box"></div>
+        </div>
+        <input type="hidden" id="sid" value="">
+      </div>
+
+      <div class="numpad-grid">
+        <button class="num-circle" onclick="pressNum('1')">1</button>
+        <button class="num-circle" onclick="pressNum('2')">2</button>
+        <button class="num-circle" onclick="pressNum('3')">3</button>
+        <button class="num-circle" onclick="pressNum('4')">4</button>
+        <button class="num-circle" onclick="pressNum('5')">5</button>
+        <button class="num-circle" onclick="pressNum('6')">6</button>
+        <button class="num-circle" onclick="pressNum('7')">7</button>
+        <button class="num-circle" onclick="pressNum('8')">8</button>
+        <button class="num-circle" onclick="pressNum('9')">9</button>
+        <button class="num-circle btn-red" onclick="pressNum('clr')">C</button>
+        <button class="num-circle" onclick="pressNum('0')">0</button>
+        <button class="num-circle btn-red" onclick="pressNum('del')">←</button>
+      </div>
+
+      <button class="btn-submit" onclick="checkStudent()">เริ่มต้นการทดสอบ</button>
+    </div>
+  </div>
+
+  <script src="exam.js"></script>
+  <script>
+    function updateVisual() {
+      const val = document.getElementById('sid').value;
+      const boxes = document.querySelectorAll('.sid-box');
+      boxes.forEach((box, index) => {
+        if (val[index]) {
+          box.innerText = val[index];
+          box.classList.add('filled');
+        } else {
+          box.innerText = '';
+          box.classList.remove('filled');
+        }
+      });
+    }
+
+    function pressNum(val) {
+      const input = document.getElementById('sid');
+      if (val === 'del') {
+        input.value = input.value.slice(0, -1);
+      } else if (val === 'clr') {
+        input.value = '';
+      } else {
+        if (input.value.length < 11) {
+          input.value += val;
+        }
+      }
+      updateVisual();
+    }
+  </script>
+</body>
+</html>

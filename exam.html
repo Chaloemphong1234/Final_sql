@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>ระบบสอบออนไลน์คณิตศาสตร์คอมพิวเตอร์</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-section">
+    <img src="im/it.png">
+    <div>
+      <div style="font-weight:bold; font-size:1.2rem;">ข้อสอบปลายภาคเรียน วิชาระบบฐานข้อมูลและการประยุกต์</div>
+      <div style="font-size:0.8rem; opacity:0.8; margin-top: 8px;">แผนกวิชาเทคโนโลยีสารสนเทศ วิทยาลัยเทคนิคชัยภูมิ</div>
+    </div>
+  </div>
+  <div style="text-align:right;">
+    <div id="studentName" style="font-weight:bold;">กำลังโหลดข้อมูล...</div>
+    <div id="timer" style="font-size:1.8rem; font-weight:bold; color:var(--accent);">60:00</div>
+  </div>
+</div>
+
+<div id="examContainer" style="display: none;">
+  <div class="main-container">
+    <div class="questions">
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      1. กำหนดให้มีตาราง student(student_id, name, class) และต้องการสร้างตาราง score <br>
+      เพื่อเก็บคะแนนโดยให้ student_id เป็น Foreign Key อ้างอิงไปยังตาราง student <br>
+      และไม่อนุญาตให้มีค่าซ้ำใน student_id ของตาราง score ข้อใดเขียนคำสั่ง SQL ได้เหมาะสมที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ใช้ PRIMARY KEY ที่ student_id และกำหนด FOREIGN KEY อ้างอิง student(student_id)</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ใช้ UNIQUE ที่ student_id และกำหนด FOREIGN KEY โดยไม่ต้องอ้างอิงตารางต้นทาง</p>
+      <p style="margin: 0; line-height: 1.4;">ค. ใช้ PRIMARY KEY แบบหลายคอลัมน์ร่วมกับ score</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ใช้ FOREIGN KEY เพียงอย่างเดียวโดยไม่กำหนดข้อจำกัดอื่น</p>
+    </div>
+  </div>
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      2. จากตาราง orders(order_id, customer_id, order_date) และ customers(customer_id, name) <br>
+       หากต้องการแสดงรายชื่อ ลูกค้าที่ “ยังไม่เคยมีการสั่งซื้อเลย” คำสั่งใดเหมาะสมที่สุด <br>
+      
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ใช้ INNER JOIN และตรวจสอบ order_id IS NULL</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ใช้ LEFT JOIN แล้วเลือกแถวที่ orders.order_id IS NULL</p>
+      <p style="margin: 0; line-height: 1.4;">ค. ใช้ RIGHT JOIN และ GROUP BY customer_id</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ใช้ JOIN ธรรมดาแล้วใช้ HAVING COUNT(order_id) = 0</p>
+    </div>
+  </div>
+
+    <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      3. กำหนดให้มีตาราง student(student_id, name, class) และ score(score_id, student_id, score)<br>
+ผู้สอนต้องการแสดง รายชื่อนักศึกษาที่มีข้อมูลคะแนนอย่างน้อย 1 รายการ
+โดยยอมรับได้ว่าหากนักศึกษาคนเดียวมีหลายคะแนน อาจแสดงชื่อซ้ำ
+แต่ต้องแน่ใจว่าผลลัพธ์จะไม่รวมชื่อนักศึกษาที่ไม่มีข้อมูลคะแนน
+และไม่ต้องการให้คำสั่งผิดพลาดจากค่า NULL ในตาราง score 
+      
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. SELECT student.name<br>FROM student<br>JOIN score ON student.student_id = score.student_id;</p>
+      <p style="margin: 0; line-height: 1.4;">ข. SELECT name<br>FROM student<br>JOIN score ON student.student_id = score.student_id;</p>
+      <p style="margin: 0; line-height: 1.4;">ค. SELECT name<br>FROM student<br>WHERE student_id = (SELECT student_id FROM score);</p>
+      <p style="margin: 0; line-height: 1.4;">ง. SELECT student.name<br>FROM student<br>LEFT JOIN score ON student.student_id = score.student_id;</p>
+    </div>
+  </div>
+
+    <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      4. นักเรียนคนหนึ่งเขียนเงื่อนไข SQL ว่า
+“เลือกข้อมูลที่อยู่ระหว่าง 80 ถึง 60”
+โดยไม่ได้ตรวจสอบลำดับของค่าเริ่มต้นและค่าสิ้นสุด
+ผลลัพธ์ที่เกิดขึ้นในหลายระบบฐานข้อมูลเป็นไปได้มากที่สุดคือข้อใด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ระบบจะสลับค่าให้อัตโนมัติเพื่อความถูกต้อง</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ได้ผลลัพธ์เหมือนกับการเลือกช่วง 60 ถึง 80</p>
+      <p style="margin: 0; line-height: 1.4;">ค. ไม่ได้ข้อมูลใดเลยแม้ข้อมูลจะอยู่ในช่วงนั้น</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ระบบเกิดข้อผิดพลาดและไม่สามารถประมวลผลได้</p>
+    </div>
+  </div>
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      5. จากตาราง product(product_id, price)
+ผู้ดูแลระบบต้องการแสดงสินค้าที่
+มีราคาอยู่นอกช่วง 100 ถึง 500
+และต้องการให้เงื่อนไขอ่านแล้วเข้าใจทันทีว่ากำลัง “ตัดช่วงราคาออก”
+แนวทางใดเหมาะสมที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ใช้เงื่อนไขราคาน้อยกว่า 100 และมากกว่า 500 พร้อมกัน</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ใช้ BETWEEN 100 OR 500</p>
+      <p style="margin: 0; line-height: 1.4;">ค. ใช้ OR เชื่อมราคาน้อยกว่า 100 กับมากกว่า 500</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ใช้ NOT BETWEEN 100 AND 500</p>
+    </div>
+  </div>
+
+    <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      6. โรงเรียนแห่งหนึ่งจัดเก็บข้อมูลนักเรียนไว้ในตารางชื่อ student โดยมีฟิลด์ รหัสนักเรียน ชื่อ ชั้นเรียน และคะแนนสอบกลางภาค ครูต้องการแสดงรายชื่อนักเรียนทั้งหมดที่มีคะแนนสอบมากกว่าหรือเท่ากับ 60 คะแนน และเรียงข้อมูลตามคะแนนจากมากไปน้อย คำสั่งใดเหมาะสมที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. SELECT * FROM student WHERE score >= 60 ORDER BY score DESC;</p>
+      <p style="margin: 0; line-height: 1.4;">ข. SELECT * FROM student ORDER BY score DESC;</p>
+      <p style="margin: 0; line-height: 1.4;">ค. SELECT name, class FROM student WHERE score > 60;</p>
+      <p style="margin: 0; line-height: 1.4;">ง. SELECT * FROM student WHERE score <= 60 ORDER BY score DESC;</p>
+    </div>
+  </div>
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      7. หลังจากสร้างตารางนักเรียนแล้ว เจ้าหน้าที่ต้องการเพิ่มข้อมูลนักเรียนใหม่
+รหัสนักเรียน 2001 ชื่อ อนันต์ นามสกุล สุขใจ
+ระดับชั้น มัธยมศึกษาปีที่ 4 คะแนนสอบกลางภาค 65
+คำสั่งใดเขียนได้ถูกต้องและครบถ้วนที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. INSERT INTO student<br> 
+(student_id, first_name, last_name, class_level, midterm_score)
+VALUES <br>(2001, 'อนันต์', 'สุขใจ', 'มัธยมศึกษาปีที่ 4', 65);
+</p>
+      <p style="margin: 0; line-height: 1.4;">ข. INSERT student <br>VALUES (2001, 'อนันต์', 'สุขใจ', 'มัธยมศึกษาปีที่ 4', 65);
+</p>
+      <p style="margin: 0; line-height: 1.4;">ค. INSERT INTO student<br> 
+VALUES ('อนันต์', 'สุขใจ', 2001, 65, 'มัธยมศึกษาปีที่ 4');
+</p>
+      <p style="margin: 0; line-height: 1.4;">ง. INSERT INTO student <br>
+(student_id, first_name, last_name)<br>
+VALUES (2001, 'อนันต์', 'สุขใจ');
+</p>
+    </div>
+  </div>
+    
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      8. ครูต้องการตรวจสอบรายชื่อนักเรียนทั้งหมด
+โดยต้องการแสดงเฉพาะ รหัสนักเรียน ชื่อ และคะแนนสอบกลางภาค
+และเรียงลำดับคะแนนจากมากไปน้อย
+คำสั่งใดเหมาะสมที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. SELECT * FROM student ORDER BY midterm_score;
+</p>
+      <p style="margin: 0; line-height: 1.4;">ข. SELECT first_name, midterm_score 
+<br>FROM student <br>
+WHERE midterm_score DESC;
+</p>
+      <p style="margin: 0; line-height: 1.4;">ค. SELECT student_id, first_name, midterm_score <br>
+FROM student <br>
+ORDER BY midterm_score DESC;
+</p>
+      <p style="margin: 0; line-height: 1.4;">ง. SELECT student_id, first_name 
+<br>FROM student<br> 
+ORDER BY midterm_score DESC;
+</p>
+    </div>
+  </div>
+
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      9. การใช้คำสั่ง UPDATE โดยไม่ระบุเงื่อนไข
+มีผลกระทบอย่างไรกับข้อมูล
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. แก้ไขทุกแถวในตาราง</p>
+      <p style="margin: 0; line-height: 1.4;">ข. แก้ไขเฉพาะแถวแรก</p>
+      <p style="margin: 0; line-height: 1.4;">ค. แก้ไขเฉพาะแถวที่มีข้อมูลซ้ำ</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ไม่เกิดการเปลี่ยนแปลงใด ๆ</p>
+    </div>
+  </div>
+
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      10. การลบข้อมูลสินค้าออกจากระบบ
+ควรพิจารณาสิ่งใดเป็นอันดับแรก
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ความถูกต้องของเงื่อนไข</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ความเร็วของคำสั่ง</p>
+      <p style="margin: 0; line-height: 1.4;">ค. จำนวนคอลัมน์ในตาราง
+</p>
+      <p style="margin: 0; line-height: 1.4;">ง. การเรียงลำดับข้อมูล
+</p>
+    </div>
+  </div>
+
+
+    <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      11. โรงเรียนจัดเก็บข้อมูลนักเรียนไว้ในตาราง student
+ประกอบด้วย รหัสนักเรียน ชื่อ นามสกุล ระดับชั้น และคะแนนสอบกลางภาค
+ฝ่ายวิชาการต้องการตรวจสอบนักเรียนที่ มีคะแนนสอบตั้งแต่ 60 คะแนนขึ้นไป
+และต้องการนำข้อมูลไปจัดทำรายงานเฉพาะนักเรียนที่
+อยู่ในระดับ “มัธยมศึกษาปีที่ 3” เท่านั้น
+คำสั่งใดแสดงข้อมูลได้ตรงตามเงื่อนไขทั้งหมดมากที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. SELECT * FROM student<br>
+WHERE score >= 60;
+</p>
+      <p style="margin: 0; line-height: 1.4;">ข. SELECT * FROM student<br>
+WHERE score >= 60<br>
+AND class_level = 'มัธยมศึกษาปีที่ 3';
+</p>
+      <p style="margin: 0; line-height: 1.4;">ค. SELECT * FROM student
+<br>WHERE class_level = 'มัธยมศึกษาปีที่ 3';
+</p>
+      <p style="margin: 0; line-height: 1.4;">ง. SELECT * FROM student<br>
+WHERE score > 60<br>
+OR class_level = 'มัธยมศึกษาปีที่ 3';
+</p>
+    </div>
+  </div>
+
+  <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      12. ฝ่ายทะเบียนต้องการตรวจสอบรายชื่อนักเรียน
+ที่ ยังไม่มีการบันทึกคะแนนสอบกลางภาค
+เนื่องจากข้อมูลส่วนนี้จะถูกส่งต่อให้ครูผู้สอนตรวจสอบอีกครั้ง
+การตั้งเงื่อนไขใดเหมาะสมที่สุดสำหรับสถานการณ์นี้
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ตรวจสอบคะแนนสอบมากกว่า 0</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ตรวจสอบคะแนนสอบเป็นค่าว่าง</p>
+      <p style="margin: 0; line-height: 1.4;">ค. ตรวจสอบคะแนนสอบเท่ากับ 0
+</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ตรวจสอบคะแนนสอบน้อยกว่า 60
+</p>
+    </div>
+  </div>
+
+
+
+    <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; shadow: var(--shadow);">
+      <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+      13. ระบบทะเบียนนักศึกษาต้องการแสดงข้อมูลนักศึกษาที่ชื่อขึ้นต้นด้วยคำว่า “สม” โดยข้อมูลต้องถูกค้นหาจากตารางนักศึกษา และต้องสามารถแสดงเฉพาะนักศึกษาที่ตรงกับรูปแบบชื่อดังกล่าวเท่านั้น การเลือกใช้คำสั่งใดเหมาะสมที่สุด
+  </div>
+  
+    <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+      <p style="margin: 0; line-height: 1.4;">ก. ใช้คำสั่งเลือกข้อมูลโดยกำหนดเงื่อนไขชื่อเท่ากับคำที่กำหนด</p>
+      <p style="margin: 0; line-height: 1.4;">ข. ใช้คำสั่งเรียงข้อมูลนักศึกษาตามชื่อ</p>
+      <p style="margin: 0; line-height: 1.4;">ค. ใช้คำสั่งเพิ่มข้อมูลนักศึกษาที่ชื่อขึ้นต้นตามที่กำหนด
+</p>
+      <p style="margin: 0; line-height: 1.4;">ง. ใช้คำสั่งเลือกข้อมูลโดยใช้เงื่อนไขรูปแบบข้อความ
+</p>
+    </div>
+  </div>
+
+   <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    14. พิจารณาคำสั่ง SQL ต่อไปนี้<br>
+   <br>
+    ครูต้องการตรวจสอบนักเรียนที่มีคะแนนผ่านเกณฑ์กลาง หากเกณฑ์ผ่านอยู่ระหว่าง 60 ถึง 80 คะแนน คำสั่งนี้ให้ผลลัพธ์อย่างไร
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. แสดงนักเรียนที่มีคะแนนอยู่ในช่วงที่กำหนด</p>
+    <p style="margin: 0; line-height: 1.4;">ข. แสดงนักเรียนทุกคนไม่จำกัดคะแนน</p>
+    <p style="margin: 0; line-height: 1.4;">ค. แสดงนักเรียนที่มีคะแนนเท่ากับ 60 และ 80 เท่านั้น</p>
+    <p style="margin: 0; line-height: 1.4;">ง. แสดงนักเรียนที่มีคะแนนมากกว่า 80</p>
+  </div>
+</div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    15. พิจารณาคำสั่ง SQL ต่อไปนี้<br>
+   <br>
+    หากใช้คำสั่งนี้กับตาราง student ข้อใดอธิบายผลลัพธ์ได้ถูกต้องที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. แสดงนักเรียนที่ชื่อเท่ากับ Som เท่านั้น</p>
+    <p style="margin: 0; line-height: 1.4;">ข. แสดงนักเรียนที่ชื่อขึ้นต้นด้วยคำว่า Som</p>
+    <p style="margin: 0; line-height: 1.4;">ค. แสดงนักเรียนที่มีชื่ออยู่ท้ายคำว่า Som</p>
+    <p style="margin: 0; line-height: 1.4;">ง. แสดงนักเรียนทุกคนที่มีชื่อ</p>
+  </div>
+</div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    16. กำหนดให้มีตารางดังนี้ ตาราง student เก็บข้อมูลนักเรียน, ตาราง classroom เก็บข้อมูลห้องเรียน<br>
+    พิจารณาคำสั่ง SQL:<br>
+   <br>
+    คำสั่งนี้มีวัตถุประสงค์หลักคือข้อใด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เชื่อมข้อมูลนักเรียนกับห้องเรียนโดยใช้รหัสห้อง</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เพิ่มข้อมูลห้องเรียนใหม่ให้กับนักเรียน</p>
+    <p style="margin: 0; line-height: 1.4;">ค. แสดงข้อมูลนักเรียนโดยไม่สนใจข้อมูลห้อง</p>
+    <p style="margin: 0; line-height: 1.4;">ง. แสดงข้อมูลห้องเรียนโดยไม่สนใจนักเรียน</p>
+  </div>
+</div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    17. พิจารณาคำสั่ง SQL ต่อไปนี้<br>
+    SELECT first_name, last_name FROM student WHERE student_id IN (101, 103, 105);<br>
+    คำสั่งนี้เหมาะสมกับสถานการณ์ใดมากที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. แสดงนักเรียนทุกคนในตาราง</p>
+    <p style="margin: 0; line-height: 1.4;">ข. แสดงนักเรียนที่มีรหัสเรียงตามลำดับ</p>
+    <p style="margin: 0; line-height: 1.4;">ค. แสดงนักเรียนที่มีรหัสมากที่สุด</p>
+    <p style="margin: 0; line-height: 1.4;">ง. แสดงนักเรียนที่มีรหัสอยู่ในชุดที่กำหนด</p>
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    18. วิทยาลัยมีระบบสารสนเทศนักศึกษา โดยเก็บข้อมูลนักศึกษาไว้ในตาราง student ซึ่งประกอบด้วยรหัสนักศึกษา ชื่อ และรหัสสาขา
+ข้อมูลสาขาถูกเก็บไว้ในตาราง major ซึ่งประกอบด้วยรหัสสาขาและชื่อสาขา
+ฝ่ายทะเบียนต้องการ ตรวจสอบเฉพาะนักศึกษาที่มีข้อมูลสาขาตรงกันจริงในระบบ
+โดยต้องการแสดงเฉพาะชื่อของนักศึกษาและชื่อสาขา
+หากนักศึกษาคนใดมีรหัสสาขาในตาราง student แต่ไม่มีข้อมูลสาขาในตาราง major ให้ ไม่นำมาแสดง
+คำสั่งใดตอบโจทย์นี้ได้ถูกต้องที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. SELECT student.first_name, major.major_name<br>
+FROM student<br>
+JOIN major<br>
+ON student.major_id = major.major_id;
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. SELECT first_name, major_name<br>
+FROM student, major<br>
+WHERE student.major_id = major.major_id;
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. SELECT student.first_name, major.major_name<br>
+FROM major<br>
+JOIN student<br>
+ON major.major_id = student.student_id;
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. SELECT student.first_name<br>
+FROM student<br>
+JOIN major;
+</p>
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    19. มีตาราง employee(emp_id, emp_name, salary, department_id)<br>
+ฝ่ายบุคคลต้องการแสดงพนักงานที่เงินเดือนมากกว่า 20,000 แต่ไม่เกิน 35,000
+และชื่อพนักงานต้องขึ้นต้นด้วยคำว่า “สม”
+ข้อมูลที่แสดงต้องเรียงตามชื่อพนักงานจาก ก ไป ฮ
+คำสั่งใดเหมาะสมที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. SELECT emp_id, emp_name, salary<br>
+FROM employee<br>
+WHERE salary BETWEEN 20000 AND 35000<br>
+ORDER BY emp_name;
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. SELECT emp_id, emp_name, salary
+<br>FROM employee<br>
+WHERE emp_name LIKE 'สม%'<br>
+ORDER BY salary;
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. SELECT emp_id, emp_name, salary
+<br>FROM employee<br>
+WHERE salary = 20000 AND salary = 35000<br>
+AND emp_name LIKE '%สม'<br>
+ORDER BY emp_name;
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. SELECT emp_id, emp_name, salary
+<br>FROM employee<br>
+WHERE salary BETWEEN 20000 AND 35000<br>
+AND emp_name LIKE 'สม%'<br>
+ORDER BY emp_name;
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    20. ระบบทะเบียนนักศึกษาเก็บข้อมูลแยกเป็นตารางนักเรียน ตารางห้อง และตารางผลการเรียน
+ครูต้องการแสดงรายชื่อนักเรียนพร้อมชื่อห้อง
+โดยใช้คะแนนที่นำมาบวกคะแนนพิเศษแล้วเป็นเงื่อนไขในการคัดกรอง
+นักเรียนที่แสดงผลต้องอยู่ในบางห้องที่กำหนด และคะแนนรวมต้องอยู่ในช่วงที่ระบุ
+นอกจากนี้ ชื่อนักเรียนต้องมีรูปแบบข้อความตรงตามบางส่วน
+และผลลัพธ์ต้องเรียงจากคะแนนรวมมากไปน้อย
+เมื่อพิจารณาเชิงโครงสร้างของคำสั่ง SQL
+แนวคิดใดอธิบายลำดับการทำงานของคำสั่งได้สอดคล้องกับผลลัพธ์มากที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. คำนวณค่าก่อน แล้วเชื่อมตาราง กรองข้อมูลตามช่วง และจัดลำดับข้อมูลที่ได้
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เชื่อมตารางก่อน จากนั้นคำนวณค่า กรองข้อมูลตามช่วง และจัดลำดับ
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. กรองข้อมูลตามช่วงก่อน แล้วคำนวณค่า เชื่อมตาราง และจัดลำดับผลลัพธ์
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. เชื่อมตาราง กรองข้อมูลตามรูปแบบข้อความ แล้วจึงคำนวณและจัดลำดับข้อมูล
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    21. ระบบร้านค้าออนไลน์ต้องแสดงข้อมูลคำสั่งซื้อพร้อมชื่อลูกค้า
+โดยต้องพิจารณายอดเงินที่ได้จากการนำราคาสินค้ามาบวกค่าจัดส่ง
+คำสั่งซื้อที่แสดงต้องมาจากลูกค้าบางกลุ่มที่กำหนดไว้
+ยอดเงินรวมต้องอยู่ในช่วงที่ระบุ และชื่อสินค้าต้องตรงตามรูปแบบบางส่วน
+ผลลัพธ์สุดท้ายต้องเรียงตามยอดเงินจากน้อยไปมาก
+หากพิจารณาเชิงแนวคิดของการเขียน SQL
+ข้อใดอธิบายเงื่อนไขทั้งหมดได้ครบโดยไม่ขัดแย้งกัน
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ใช้การเชื่อมตาราง ตรวจสอบค่าจากชุด ตรวจสอบช่วงค่า คำนวณยอดเงิน และจัดเรียงผลลัพธ์
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ใช้การเชื่อมตาราง คำนวณยอดเงิน ตรวจสอบช่วงค่า ตรวจสอบค่าจากชุด และจัดเรียงผลลัพธ์
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้การคำนวณยอดเงิน ตรวจสอบช่วงค่า เชื่อมตาราง ตรวจสอบรูปแบบข้อความ และจัดเรียง
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้การตรวจสอบรูปแบบข้อความ ตรวจสอบค่าจากชุด คำนวณยอดเงิน และเชื่อมตาราง
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    22. พิจารณาฐานข้อมูลระบบบริหารการเรียนการสอน ซึ่งประกอบด้วยตารางดังต่อไปนี้<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตาราง student ประกอบด้วยฟิลด์<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;student_id<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;student_name<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;student_status<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตาราง enrollment ประกอบด้วยฟิลด์<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;student_id<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;course_id<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;enroll_year<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ตาราง course ประกอบด้วยฟิลด์<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;course_id<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;course_name<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;course_credit<br>
+ผู้ดูแลระบบต้องการ แสดงรายชื่อนักศึกษา ที่ตรงตามเงื่อนไขทั้งหมดดังนี้<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. นักศึกษาต้องมีสถานะเป็น active<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. ต้องเคยลงทะเบียนเรียนในปี ระหว่าง 2021 ถึง 2024<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. ต้องเรียนรายวิชาที่มีหน่วยกิต มากกว่า 3 หน่วยกิต<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. ชื่อนักศึกษาต้องขึ้นต้นด้วยคำว่า “ชา”<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. ต้องไม่เคยลงทะเบียนเรียนในรายวิชาที่ชื่อมีคำว่า “ทดลอง” ปรากฏอยู่<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6. ชื่อนักศึกษาที่แสดงต้องไม่ซ้ำกัน<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;7. ต้องเรียงลำดับผลลัพธ์ตามชื่อนักศึกษาจาก ก → ฮ<br>
+คำสั่ง SQL ใด ถูกต้องและครบถ้วนตามเงื่อนไขมากที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. <br>SELECT DISTINCT student.student_name<br>
+FROM student, enrollment, course<br>
+WHERE student.student_id = enrollment.student_id<br>
+AND enrollment.course_id = course.course_id<br>
+AND student.student_status = 'active'<br>
+AND enrollment.enroll_year >= 2021<br>
+AND enrollment.enroll_year <= 2024<br>
+AND course.course_credit >= 3<br>
+AND student.student_name LIKE '%ชา'<br>
+AND course.course_name NOT LIKE '%ทดลอง%'<br>
+ORDER BY student.student_name ASC;<br>
+
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. <br>SELECT DISTINCT student.student_name<br>
+FROM student<br>
+JOIN enrollment ON student.student_id = enrollment.student_id<br>
+JOIN course ON enrollment.course_id = course.course_id<br>
+WHERE student.student_status = 'active'<br>
+AND enrollment.enroll_year BETWEEN 2021 AND 2024<br>
+AND course.course_credit > 3<br>
+AND student.student_name LIKE 'ชา%'<br>
+AND student.student_id NOT IN (<br>
+    SELECT enrollment.student_id<br>
+    FROM enrollment<br>
+    JOIN course ON enrollment.course_id = course.course_id<br>
+    WHERE course.course_name LIKE '%ทดลอง%'<br>
+)<br>
+ORDER BY student.student_name ASC;<br>
+
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. <br>SELECT student.student_name<br>
+FROM student<br>
+WHERE student.student_status = 'active'<br>
+AND student.student_name LIKE 'ชา%'<br>
+AND student.student_id IN (<br>
+    SELECT enrollment.student_id<br>
+    FROM enrollment<br>
+    WHERE enrollment.enroll_year BETWEEN 2021 AND 2024<br>
+)<br>
+ORDER BY student.student_name ASC;<br>
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. <br>SELECT student.student_name<br>
+FROM student<br>
+LEFT JOIN enrollment ON student.student_id = enrollment.student_id<br>
+LEFT JOIN course ON enrollment.course_id = course.course_id<br>
+WHERE student.student_status = 'active'<br>
+AND enrollment.enroll_year BETWEEN 2021 AND 2024<br>
+AND course.course_credit > 3<br>
+AND student.student_name LIKE 'ชา%'<br>
+AND course.course_name NOT IN ('ทดลอง')<br>
+ORDER BY student.student_name ASC;
+
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    23. ฐานข้อมูลระบบบุคลากรมีตาราง <br>employee(employee_id, employee_name, employee_status)<br>
+และ salary(employee_id, salary_year, salary_amount)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ต้องการแสดงชื่อพนักงานที่<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. สถานะ active<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. มีเงินเดือนปีระหว่าง 2020–2023<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. ไม่เคยมีเงินเดือนต่ำกว่า 15,000<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4. ชื่อขึ้นต้นด้วย “สม”<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5. ชื่อไม่ซ้ำ และเรียงตามชื่อ<br>
+คำสั่งใดถูกต้อง
+
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ใช้ LEFT JOIN ไม่กรอง
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ใช้ BETWEEN อย่างเดียว
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้ IN เงินเดือนมากกว่า
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้ NOT IN กับ salary ต่ำกว่า
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    24. เงื่อนไขใดใช้ตรวจหลายค่า
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. =
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. LIKE
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. IN
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. BETWEEN
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    25. "ระบบทะเบียนนักศึกษามีตาราง student(student_id, student_name, student_status)<br>
+ตาราง enrollment(student_id, course_id, enroll_year)<br>
+และตาราง course(course_id, course_name, course_credit)<br>
+
+ฝ่ายวิชาการต้องการตรวจสอบรายชื่อนักศึกษาที่ยังมีสถานะเป็น active โดยนักศึกษานั้น
+ต้องเคยลงทะเบียนเรียนในปีการศึกษาระหว่าง 2021 ถึง 2024
+และต้องเป็นการลงทะเบียนในรายวิชาที่มีหน่วยกิตมากกว่า 3 หน่วยกิตเท่านั้น
+ชื่อนักศึกษาต้องขึ้นต้นด้วยคำว่า “ชา”
+และที่สำคัญ นักศึกษานั้นต้องไม่เคยลงทะเบียนเรียนในรายวิชาที่มีคำว่า “ทดลอง” อยู่ในชื่อรายวิชาเลยแม้แต่ครั้งเดียว
+ผลลัพธ์ที่แสดงต้องไม่ซ้ำกัน และเรียงตามลำดับชื่อนักศึกษา"<br>
+
+แนวคิดในการเขียนคำสั่ง SQL ใดเหมาะสมที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ใช้ JOIN ร่วมกับ NOT IN
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ใช้ BETWEEN อย่างเดียว
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้ LIKE โดยไม่ใช้ซับคิวรี
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้ LEFT JOIN แล้วกรองชื่อ
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    26. "ระบบบุคลากรมีตาราง employee(employee_id, employee_name, employee_status)<br>
+และตาราง salary(employee_id, salary_year, salary_amount)<br>
+
+ฝ่ายการเงินต้องการรายชื่อพนักงานที่ยังทำงานอยู่
+โดยพนักงานต้องมีข้อมูลเงินเดือนในช่วงปีระหว่าง 2020 ถึง 2023
+และตลอดระยะเวลาที่มีข้อมูลเงินเดือนนั้น ต้องไม่เคยได้รับเงินเดือนต่ำกว่า 15,000 บาทเลย
+ชื่อพนักงานต้องมีคำว่า “ชัย” ปรากฏอยู่ไม่จำกัดตำแหน่ง
+และรายชื่อที่แสดงต้องไม่ซ้ำ"<br>
+
+ควรเลือกแนวคิดใดในการเขียนคำสั่ง SQL
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ใช้ BETWEEN เงินเดือน
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ใช้ LIKE อย่างเดียว
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้ NOT IN ตรวจเงินเดือนต่ำ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้ ORDER BY แทนการกรอง
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    27. ระบบลูกค้าจัดเก็บข้อมูลในตาราง customer และบันทึกการสั่งซื้อในตาราง order_record ฝ่ายการตลาดต้องการลบข้อมูลลูกค้าที่ไม่เคยมีประวัติการสั่งซื้อเลยแม้แต่ครั้งเดียว และชื่อขึ้นต้นด้วยคำว่า “test” โดยต้องมั่นใจว่าจะไม่ลบลูกค้าที่เคยมีคำสั่งซื้อหลงเหลืออยู่ในระบบ แนวคิดใดปลอดภัยและเหมาะสมที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ใช้ DROP TABLE
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ใช้ DELETE ร่วมกับ NOT IN
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้ TRUNCATE TABLE
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้ UPDATE เปลี่ยนชื่อ
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    28. โรงพยาบาลแห่งหนึ่งใช้ฐานข้อมูลเพื่อติดตามประวัติการรักษาของผู้ป่วย โดยจัดเก็บข้อมูลผู้ป่วยไว้ในตาราง patient ซึ่งประกอบด้วยรหัสผู้ป่วย ชื่อผู้ป่วย และสถานะการรักษา เก็บข้อมูลการเข้ารับการรักษาไว้ในตาราง treatment_record ซึ่งระบุปีที่เข้ารับการรักษา และเก็บข้อมูลยาที่ใช้รักษาไว้ในตาราง medicine ซึ่งประกอบด้วยชื่อยาและประเภท ฝ่ายบริหารต้องการรายชื่อผู้ป่วยที่ยังอยู่ในสถานะรักษาอยู่ในปัจจุบัน เคยเข้ารับการรักษาอย่างน้อยหนึ่งครั้งในช่วงปีระหว่าง 2020 ถึง 2024 และได้รับยาเฉพาะประเภทที่กำหนดเท่านั้น โดยมีเงื่อนไขสำคัญว่า หากผู้ป่วยรายใดเคยได้รับยาที่มีคำว่า “ทดลอง” ปรากฏอยู่ในชื่อยาแม้เพียงครั้งเดียว จะต้องไม่ถูกนำมาแสดงในผลลัพธ์ ไม่ว่าข้อมูลการรักษาอื่นจะถูกต้องครบถ้วนเพียงใดก็ตาม และชื่อผู้ป่วยต้องมีคำว่า “ศักดิ์” ปรากฏอยู่ไม่จำกัดตำแหน่ง
+แนวคิดในการเขียนคำสั่ง SQL ใดสะท้อนตรรกะของเงื่อนไขทั้งหมดได้ถูกต้องและปลอดภัยที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เชื่อมตารางทั้งหมดเข้าด้วยกันแล้วกรองเฉพาะแถวที่ชื่อยาไม่ปรากฏคำต้องห้าม โดยถือว่าแถวที่ผ่านเงื่อนไขเพียงแถวเดียวเพียงพอ
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เลือกผู้ป่วยที่เข้าเงื่อนไขสถานะ ช่วงปี และชื่อทั้งหมดก่อน จากนั้นจึงใช้ซับคิวรีเพื่อตัดผู้ป่วยที่เคยได้รับยาซึ่งมีคำต้องห้ามออกจากผลลัพธ์
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. กรองผู้ป่วยตามสถานะและช่วงปี จากนั้นใช้เงื่อนไขชื่อยาแบบไม่เท่ากับคำต้องห้ามโดยไม่ตรวจสอบประวัติย้อนหลังทั้งหมด
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ดึงข้อมูลผู้ป่วยทุกคนที่มีชื่อถูกต้องก่อน แล้วใช้การจัดกลุ่มเพื่อลบข้อมูลซ้ำโดยไม่พิจารณาการได้รับยาต้องห้าม
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    29. แพลตฟอร์มสตรีมมิงมีตาราง user_account สำหรับเก็บข้อมูลผู้ใช้ และตาราง viewing_history สำหรับเก็บประวัติการรับชมที่ระบุปีและระยะเวลาการรับชม ฝ่ายวิเคราะห์ต้องการรายชื่อผู้ใช้ที่เคยรับชมเนื้อหาอย่างน้อยหนึ่งครั้งในช่วงปีระหว่าง 2020 ถึง 2023 และมียอดเวลารับชมรวมต่อปีมากกว่า 100 ชั่วโมงทุกปี แต่หากผู้ใช้รายใดมีปีใดปีหนึ่งที่เวลารับชมต่ำกว่าเกณฑ์หรือไม่มีข้อมูลปีนั้นเลย จะต้องถูกตัดออกทันที แนวคิดใดสะท้อนเงื่อนไขนี้ได้ถูกต้องที่สุด
+  </div>
+
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. กรองเฉพาะแถวที่เวลารับชมมากกว่าเกณฑ์ แล้วแสดงรายชื่อผู้ใช้
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ใช้ NOT IN ตัดเฉพาะปีที่ต่ำกว่าเกณฑ์ โดยไม่สนปีที่ขาดหาย
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้ BETWEEN กรองปี แล้วรวมเวลารับชมทั้งหมดโดยไม่แยกปี
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. จัดกลุ่มตามผู้ใช้และปี แล้วตรวจสอบจำนวนปีและผลรวมด้วยเงื่อนไข
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    30. ระบบการเงินของบริษัทมีตาราง account และ transaction_record ฝ่ายตรวจสอบต้องการรายชื่อบัญชีที่เคยมีธุรกรรมในช่วงปีระหว่าง 2022 ถึง 2024 
+  และยอดธุรกรรมรวมเป็นบวกทุกปี แต่หากบัญชีใดเคยมีธุรกรรมที่มียอดติดลบเกิน -50,000 บาทแม้เพียงครั้งเดียว จะต้องถูกตัดออกจากผลลัพธ์ทั้งหมด 
+  <br>พิจารณาแนวคิดจากโค้ดด้านล่าง<br>
+SELECT account.account_id<br>
+FROM account<br>
+JOIN transaction_record ON account.account_id = transaction_record.account_id<br>
+แนวคิดใดควรนำไปใช้ต่อเพื่อให้ได้ผลลัพธ์ถูกต้อง
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ใช้การจัดเรียงข้อมูลเพื่อแยกยอดติดลบออกจากผลลัพธ์
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ตรวจสอบเฉพาะธุรกรรมในช่วงปีที่กำหนด โดยไม่พิจารณาธุรกรรมอื่น
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. เพิ่มซับคิวรีเพื่อตัดบัญชีที่เคยมียอดติดลบเกินเกณฑ์ออกจากผลลัพธ์ทั้งหมด
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. กรองเฉพาะแถวที่ยอดเป็นบวก แล้วสรุปผลเป็นรายบัญชี
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    31. ระบบจัดการคลังสินค้าเก็บข้อมูลสินค้าไว้ในตาราง product และเก็บข้อมูลการเคลื่อนไหวสินค้าไว้ในตาราง stock_log ฝ่ายคลังต้องการรายชื่อสินค้าที่เคยมีการเพิ่มจำนวนสินค้าเข้าคลังในช่วงปีระหว่าง 2020 ถึง 2023 อย่างน้อยหนึ่งครั้ง แต่ต้องไม่เคยมีการลบจำนวนสินค้าออกจากคลังเลยแม้แต่ครั้งเดียว และชื่อสินค้าต้องขึ้นต้นด้วยคำว่า “PRO” นอกจากนี้ ต้องการผลลัพธ์เฉพาะสินค้าที่ยังคงมีสถานะใช้งานอยู่
+วิธีคิดใดสะท้อนเงื่อนไขทั้งหมดได้ครบถ้วน
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เลือกเฉพาะบันทึกที่เป็นการเพิ่มสินค้า แล้วละเว้นการตรวจสอบประวัติย้อนหลัง
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เลือกสินค้าที่มีบันทึกเพิ่มสินค้า แล้วตัดสินค้าที่มีประวัติลบออกโดยใช้ NOT IN
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ใช้ LIKE ตรวจชื่อสินค้า แล้วใช้ BETWEEN ตรวจปีโดยไม่พิจารณาประเภทการเคลื่อนไหว
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้ DISTINCT แสดงชื่อสินค้าเพื่อลดข้อมูลซ้ำจาก stock_log
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    32. ผู้ดูแลฐานข้อมูลต้องการแก้ไขโครงสร้างตาราง employee โดยเพิ่มคอลัมน์ salary และตั้งค่าให้ไม่สามารถเป็นค่าว่างได้ หลังจากนั้นต้องการลบตาราง temporary_employee ออกจากระบบอย่างถาวร โดยไม่สนข้อมูลภายในตารางดังกล่าว
+ลำดับแนวคิดใดถูกต้องที่สุด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ลบข้อมูลในตารางชั่วคราวทั้งหมด แล้วค่อยเพิ่มคอลัมน์
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ดรอปตารางชั่วคราวก่อน เพื่อป้องกันความซ้ำซ้อนของโครงสร้าง
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. แก้ไขโครงสร้างตารางหลักก่อน แล้วจึงดรอปตารางที่ไม่ต้องการ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. สร้างตารางใหม่แทน แล้วลบตารางเดิมทั้งหมด
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    33. องค์กรหนึ่งมีตาราง project ใช้เก็บข้อมูลโครงการ และตาราง project_log ใช้เก็บประวัติการแก้ไขโครงการ ผู้ดูแลระบบต้องการเพิ่มคอลัมน์ project_status ลงในตาราง project โดยกำหนดว่าไม่อนุญาตให้เป็นค่าว่าง และต้องไม่กระทบต่อข้อมูลเดิมที่มีอยู่ในระบบ หากในตาราง project มีข้อมูลจำนวนมากอยู่แล้ว การเลือกแนวคิดใดเหมาะสมที่สุดเพื่อหลีกเลี่ยงข้อผิดพลาด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เพิ่มคอลัมน์โดยไม่กำหนดเงื่อนไขใด ๆ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ดรอปตารางแล้วสร้างใหม่พร้อมคอลัมน์ครบ
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ลบข้อมูลเดิมออกก่อนแล้วค่อยเพิ่มคอลัมน์
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. เพิ่มคอลัมน์ก่อนโดยกำหนดค่าเริ่มต้นให้ทุกแถว
+</p>
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    34. ตาราง supplier เก็บข้อมูลผู้ขาย และตาราง delivery เก็บข้อมูลการส่งสินค้า ผู้ดูแลต้องการแสดงรายชื่อผู้ขายที่ไม่เคยมีประวัติการส่งสินค้าเลย โดยใช้ NOT IN เชื่อมกับตาราง delivery หากในตาราง delivery มีแถวที่ supplier_id เป็นค่าว่าง จะส่งผลต่อผลลัพธ์อย่างไร
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ผลลัพธ์อาจไม่แสดงข้อมูลใดเลย
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ผลลัพธ์จะถูกต้องตามปกติ
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. แสดงเฉพาะผู้ขายที่มีข้อมูลซ้ำ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. แสดงเฉพาะผู้ขายรายแรก
+</p>
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    35. ระบบขายสินค้าออนไลน์บันทึกคำสั่งซื้อของลูกค้า โดยต้องการแสดงรายชื่อลูกค้าที่มีคำสั่งซื้อในช่วงปี 2020 ถึง 2024 อย่างน้อยหนึ่งครั้ง และใน ทุกคำสั่งซื้อที่เกิดขึ้นในช่วงนี้ ต้องมีสถานะชำระเงินเรียบร้อย หากลูกค้ารายใดมีคำสั่งซื้อค้างชำระเพียงครั้งเดียวในช่วงปีดังกล่าว จะต้องถูกตัดออก แม้ว่านอกช่วงปีนี้จะมีสถานะใดก็ตาม
+ข้อใดสะท้อนเงื่อนไขนี้ได้ครบ
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เลือกเฉพาะคำสั่งซื้อที่จ่ายแล้ว
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ตัดลูกค้าที่ผิดเงื่อนไขในช่วงปี
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. เลือกลูกค้าที่ไม่มีค้างชำระ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ดูเฉพาะคำสั่งซื้อล่าสุด
+</p>
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    36. ระบบประเมินผลใช้ช่วงคะแนน BETWEEN 60 AND 80 เพื่อตรวจสอบผู้ผ่านระดับกลาง หากนำเงื่อนไขนี้ไปใช้ร่วมกับเงื่อนไขอื่นแล้วพบว่ามีผู้ได้คะแนน 60 และ 80 ปรากฏในผลลัพธ์
+ข้อใดอธิบายปรากฏการณ์นี้ได้ถูกต้อง
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. การจัดลำดับ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ค่าถูกปัด
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. รวมค่าขอบเขต
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ชนิดข้อมูล
+  </div>
+
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    37. ระบบบริหารบุคลากรขององค์กรแห่งหนึ่งเก็บข้อมูลพนักงานไว้ในตาราง employee 
+  โดยระบุชื่อพนักงานและสถานะการทำงาน และเก็บประวัติการทำงานไว้ในตาราง work_history 
+  ซึ่งบันทึกชื่อโครงการและปีที่ทำงาน ฝ่ายตรวจสอบต้องการรายชื่อพนักงานที่ยังมีสถานะทำงานอยู่ในปัจจุบัน 
+  เคยทำงานในโครงการที่มีคำว่า “ระบบ” อยู่ในชื่ออย่างน้อยหนึ่งครั้ง ระหว่างปี 2021 ถึง 2023 
+  และต้องแสดงรายชื่อพนักงานทั้งหมดที่เข้าเงื่อนไขนี้ อย่างไรก็ตาม 
+  หากพนักงานรายใดไม่เคยมีประวัติการทำงานเลย 
+  ก็ต้องยังปรากฏอยู่ในผลลัพธ์ด้วยในกรณีที่สถานะยังทำงานอยู่<br>
+  พิจารณาโค้ดต่อไปนี้<br>
+  SELECT employee.employee_name<br>
+FROM employee<br>
+LEFT JOIN work_history<br>
+ON employee.employee_number = work_history.employee_number
+<br>WHERE employee.employee_status = 'active'<br>
+AND work_history.work_year BETWEEN 2021 AND 2023<br>
+AND work_history.project_name LIKE '%ระบบ%';<br>
+ปัญหาหลักของโค้ดนี้คือข้อใด
+  </div>
+
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เงื่อนไขใน WHERE
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เงื่อนไขใน BETWEEN
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. เงื่อนไขใน JOIN
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. การใช้ LIKE
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    38. ระบบคลังเอกสารขององค์กรเก็บข้อมูลเอกสารไว้ในตาราง document และเก็บข้อมูลผู้จัดทำเอกสารไว้ในตาราง author ฝ่ายตรวจสอบคุณภาพต้องการรายชื่อเอกสารที่ถูกสร้างขึ้นในช่วงปี 2022 ถึง 2024 
+    และมีชื่อผู้จัดทำปรากฏอยู่ในระบบอย่างถูกต้อง แต่ไม่ต้องการเอกสารใด ๆ ที่ผู้จัดทำเคยมีประวัติถูกลบออกจากระบบมาก่อน แม้ว่าปัจจุบันจะถูกเพิ่มกลับเข้ามาใหม่แล้วก็ตาม<br>
+    SELECT document_title<br>
+FROM document<br>
+JOIN author<br>
+WHERE document_year BETWEEN 2022 AND 2024;<br>
+ข้อใดอธิบายได้ดีที่สุดว่าทำไมผลลัพธ์จากโค้ดจึงไม่ตรงตามความต้องการ
+
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. การเชื่อมตารางทำให้ข้อมูลหาย
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ช่วงปีเลือกกว้างเกินไป
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ไม่ได้ตรวจสอบประวัติการถูกลบ
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ชื่อเอกสารไม่ถูกกรอง
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    39. ตาราง order_record ใช้ order_number เป็นแพเมรีคีย์ และตาราง payment ใช้ order_number เป็นฟอเรนต์คีย์ หากพบว่ามีข้อมูลใน payment ที่ไม่สามารถเชื่อมกับ order_record ได้ ข้อใดอธิบายสาเหตุได้เหมาะสมที่สุด
+
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. แพเมรีคีย์ถูกกำหนดผิดชนิดข้อมูล
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ไม่มีการบังคับใช้ฟอเรนต์คีย์
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ตาราง payment ถูกสร้างก่อน
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ข้อมูลซ้ำใน order_record
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    40. ระบบหนึ่งกำหนดให้ตาราง registration ใช้ registration_number เป็นแพเมรีคีย์ และใช้ student_number เป็นฟอเรนต์คีย์อ้างอิงไปยัง student หากมีการเปลี่ยนค่า student_number ในตาราง student โดยตรง สิ่งใดควรถูกพิจารณามากที่สุด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ความสอดคล้องของข้อมูลที่เชื่อมโยง
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ความเร็วในการค้นหา
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ขนาดของตาราง
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. จำนวนแถวที่ถูกกระทบ
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    41. หากนักพัฒนาต้องการสร้างส่วนของหน้าจอที่สามารถนำกลับมาใช้ซ้ำได้หลายๆ ครั้งในโปรเจกต์ ตามปรัชญาของ React ควรเลือกใช้แนวคิดใดเป็นหลัก
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. Babel Compiler Architecture
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. Functional State Pattern
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. API Connection Pattern
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. Component-based Architecture
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    42. ข้อใดกล่าวถึงบทบาทของ JSX ในการพัฒนา React ได้ถูกต้องที่สุด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เป็นเครื่องมือหลักที่ใช้ในการดึงข้อมูลจาก Server แทน Fetch API
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เป็นรูปแบบการเขียนโค้ดที่ช่วยให้จัดการ UI ได้สะดวกและอ่านง่ายขึ้น
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. เป็นภาษาโปรแกรมใหม่ที่ Facebook สร้างขึ้นเพื่อมาแทนที่ JavaScript
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. เป็น Library เสริมที่ต้องติดตั้งแยกต่างหากจาก React เสมอ
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    43. ทำไม Babel Compiler จึงมีความสำคัญอย่างยิ่งในกระบวนการพัฒนาด้วย React
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. ช่วยในการเก็บสถานะ (State) ของ Component ให้เป็นปัจจุบัน
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. แปลงโค้ด JSX และ ES6+ ให้เป็นภาษาที่เบราว์เซอร์ทั่วไปสามารถเข้าใจได้
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ทำหน้าที่เป็น Web Server สำหรับแสดงผลหน้าเว็บไซต์
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ใช้สำหรับเชื่อมต่อ API จาก Server แบบ Real-time
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    44. หากท่านต้องการจัดการข้อมูลที่ 'เปลี่ยนแปลงได้แบบไดนามิก' ภายใน Component หนึ่งๆ ท่านควรใช้เครื่องมือใด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. State Management
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. Props
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. Babel
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. Webpack
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    45. 
+React Hook ตัวใดที่ออกแบบมาเพื่อจัดการ Side Effects โดยเฉพาะ
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. useHistory
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. useState
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. useContext
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. useEffect
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    46. ข้อใดอธิบายความสัมพันธ์ระหว่าง React และ Facebook ได้ถูกต้องที่สุด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. React เป็น JavaScript Library ที่พัฒนาโดย Facebook
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. React เป็นระบบปฏิบัติการที่ Facebook สร้างมาแข่งกับ Windows
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. Facebook บังคับให้ทุกคนที่ใช้ Facebook ต้องเขียน React
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. Facebook ซื้อกิจการ React มาจากบริษัทอื่น
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    47. ข้อใดคือนามสกุลของไฟล์โค้ด React
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. .REC
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. .JSX
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. .REX
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. .JS
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    48. Docker คืออะไร และทำไมจึงเป็นที่นิยมในการส่งมอบซอฟต์แวร์ในปัจจุบัน
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เป็นภาษาโปรแกรมชนิดใหม่ที่ใช้เขียนแทน JavaScript เพื่อให้รันบน Server ได้เร็วขึ้น
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. เป็นแพลตฟอร์มที่ช่วยจำลองสภาพแวดล้อมของแอปพลิเคชันให้อยู่ในรูปแบบ Container
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. เป็นฐานข้อมูล Cloud ขนาดใหญ่ที่ใช้เก็บไฟล์ภาพ (Images) ของผู้ใช้งานทั่วไป
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. เป็นเครื่องมือสำหรับออกแบบ UI/UX ที่ทำงานได้เร็วกว่า React
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    49. ข้อใดกล่าวถึงความสัมพันธ์ระหว่าง Portainer และ Docker Compose ได้ถูกต้องที่สุด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. Docker Compose คือโปรแกรมที่ถูกสร้างมาเพื่อกำจัด Portainer ทิ้ง
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. Portainer ไม่สามารถอ่านไฟล์ Docker Compose ได้ ต้องพิมพ์คำสั่งเองเท่านั้น
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ต้องลบ Docker Compose ออกจากเครื่องก่อนจึงจะติดตั้ง Portainer ได้
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. Portainer มี Stacks ช่วยให้ Deploy Docker Compose ได้ง่าย
+  </div>
+  </div> <div class="q-card" style="margin-bottom: 30px; padding: 25px; border-radius: 15px; background: #fff; box-shadow: var(--shadow);">
+  <div style="font-size:1.3rem; font-weight:bold; line-height: 1.6; margin-bottom: 20px; color: var(--primary);">
+    50. ความปลอดภัยเบื้องต้นที่ควรทำทันทีหลังจาก Deploy Portainer เสร็จสิ้นคือข้อใด
+  </div>
+  
+  <div class="options-container" style="display: flex; flex-direction: column; gap: 8px;">
+    <p style="margin: 0; line-height: 1.4;">ก. เปลี่ยนชื่อโปรแกรมจาก Portainer เป็นชื่ออื่นเพื่อพรางตา
+</p>
+    <p style="margin: 0; line-height: 1.4;">ข. ปิดการเชื่อมต่ออินเทอร์เน็ตของเครื่อง Server ตลอดกาล
+
+</p>
+    <p style="margin: 0; line-height: 1.4;">ค. ตั้งรหัสผ่าน Admin ทันทีที่เข้าหน้าเว็บครั้งแรก
+</p>
+    <p style="margin: 0; line-height: 1.4;">ง. ลบไฟล์ Docker ทั้งหมดทิ้งเพื่อป้องกันการแฮ็ก
+  </div>
+
+</div>
+
+
+
+
+    
+
+    <div 
+      id="additional-questions">
+    </div>
+  </div>
+
+
+  <div class="sidebar">
+      <h3 style="text-align:center;">กระดาษคำตอบ</h3>
+      <div id="answer-sheet-container"></div> <button class="btn-login" style="width:100%;" onclick="submitExam(false)">ส่งข้อสอบ</button>
+    </div>
+  </div>
+</div>
+
+<div id="answer-sheet-container"></div>
+
+<script src="exam.js"></script>
+<script>
+  const sheetContainer = document.getElementById('answer-sheet-container');
+if (sheetContainer) {
+  for (let i = 1; i <= 50; i++) { // แก้ตรงนี้
+    const row = document.createElement('div');
+      row.className = 'ans-row';
+      row.innerHTML = `
+        <span style="font-weight:bold; color:var(--primary);">${i.toString().padStart(2, '0')}</span>
+        <div class="answer-grid">
+          <button class="btn-circle" onclick="mark(${i},'ก',this)">ก</button>
+          <button class="btn-circle" onclick="mark(${i},'ข',this)">ข</button>
+          <button class="btn-circle" onclick="mark(${i},'ค',this)">ค</button>
+          <button class="btn-circle" onclick="mark(${i},'ง',this)">ง</button>
+        </div>
+      `;
+      sheetContainer.appendChild(row);
+    }
+  }
+</script>
+</body>
+</html>

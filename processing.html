@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+<body style="background: var(--primary);">
+<div class="center">
+  <div class="card" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(212,175,55,0.3); backdrop-filter: blur(15px);">
+    <div class="loader-luxury"></div>
+    <h2 style="color:var(--accent); letter-spacing: 2px;">ระบบกำลังเก็บกระดาษคำตอบ</h2>
+    <p style="color: #d7ccc8;">กรุณารอสักครู่ ระบบกำลังตรวจสอบความถูกต้องของคำตอบและบันทึกผลสอบ...</p>
+    <div style="width: 100%; background: rgba(255,255,255,0.1); height: 5px; border-radius: 10px; margin-top: 20px; overflow: hidden;">
+      <div id="progress-bar" style="width: 0%; height: 100%; background: var(--accent); transition: width 30s linear;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // เริ่มวิ่ง Progress Bar
+  setTimeout(() => {
+    document.getElementById('progress-bar').style.width = '100%';
+  }, 100);
+
+  // ไปหน้าผลสอบหลังจาก 30 วินาที
+  setTimeout(() => {
+    location.href = 'result.html';
+  }, 30000);
+</script>
+</body>
+</html>
