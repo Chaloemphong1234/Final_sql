@@ -17,12 +17,12 @@ const correctAnswers = {
 
 const TOTAL_QUESTIONS = 60; 
 const PASS_SCORE = 30;      
-let timeLeft = 1.5 * 60;     // 90 นาที
+let timeLeft = 90 * 60;    
 let timerInterval;
-let alert30Shown = false;   // ตัวแปรเช็คการแจ้งเตือน 30 นาที
+let alert30Shown = false;  
 
-// เวลาเริ่มสอบ (ตั้งค่าตามเดิมที่คุณส่งมา)
-const EXAM_START_TIME = new Date(2026, 0, 27, 15, 59, 0);
+
+const EXAM_START_TIME = new Date(2026, 0, 27, 18, 0, 0);
 
 /* ================== CUSTOM POPUP SYSTEM ================== */
 function showModal(title, message, icon = '⚠️', callback = null) {
