@@ -17,13 +17,16 @@ const correctAnswers = {
 
 const TOTAL_QUESTIONS = 60; 
 const PASS_SCORE = 30;      
-let timeLeft = 90 * 60;    
+let timeLeft = 60 * 60;    
 let timerInterval;
 let alert30Shown = false;  
+let alert20Shown = false;
+let alert10Shown = false;
+let alert5Shown = false;
+let alert1Shown = false;
 
-
-const EXAM_START_TIME = new Date(2026, 0, 28, 21, 30, 0);
-const LATE_LIMIT_MINUTES = 10;
+const EXAM_START_TIME = new Date(2026, 0, 29, 16, 59, 0);
+const LATE_LIMIT_MINUTES = 15;
 
 
 /* ================== CUSTOM POPUP SYSTEM ================== */
@@ -190,7 +193,7 @@ function checkExamTimeStatus() {
       examContainer.style.display = "flex";
 
       // ====== หักเวลาที่มาช้าออกจากเวลาสอบ ======
-      const EXAM_DURATION_MINUTES = 90;
+      const EXAM_DURATION_MINUTES = 60;
       timeLeft = (EXAM_DURATION_MINUTES * 60) - (lateMinutes * 60);
 
       if (timeLeft < 0) timeLeft = 0;
@@ -216,6 +219,10 @@ function startTimer(){
     if (timeLeft === 1800 && !alert30Shown) {
       alert30Shown = true;
       showModal("แจ้งเตือนเวลา", "เหลือเวลาอีก 30 นาที กรุณาตรวจสอบคำตอบและทำให้ครบ", "⏰");
+    }
+    if (timeLeft === 1200 && !alert30Shown) {
+      alert30Shown = true;
+      showModal("แจ้งเตือนเวลา", "เหลือเวลาอีก 20 นาที กรุณาตรวจสอบคำตอบและทำให้ครบ", "⏰");
     }
 
     if (timeLeft === 600 && !alert30Shown) {
