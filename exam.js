@@ -25,8 +25,8 @@ let alert10Shown = false;
 let alert5Shown = false;
 let alert1Shown = false;
 
-const EXAM_START_TIME = new Date(2026, 0, 29, 16, 59, 0);
-const LATE_LIMIT_MINUTES = 15;
+const EXAM_START_TIME = new Date(2026, 0, 29, 17, 5, 0);
+const LATE_LIMIT_MINUTES = 10;
 
 
 /* ================== CUSTOM POPUP SYSTEM ================== */
